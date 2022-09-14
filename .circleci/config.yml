@@ -235,24 +235,24 @@ jobs:
 workflows:
   default:
     jobs:
-#      - build-frontend:
-#          context: UDAPEOPLE_SLACK
-#      - build-backend:
-#          context: UDAPEOPLE_SLACK
-#      - test-frontend:
-#          requires: [build-frontend]
-#          context: UDAPEOPLE_SLACK
-#      - test-backend:
-#          requires: [build-backend]
-#          context: UDAPEOPLE_SLACK
-#      - scan-backend:
-#          requires: [build-backend]
-#          context: UDAPEOPLE_SLACK
-#      - scan-frontend:
-#          requires: [build-frontend]
-#          context: UDAPEOPLE_SLACK
+      - build-frontend:
+          context: UDAPEOPLE_SLACK
+      - build-backend:
+          context: UDAPEOPLE_SLACK
+      - test-frontend:
+          requires: [build-frontend]
+          context: UDAPEOPLE_SLACK
+      - test-backend:
+          requires: [build-backend]
+          context: UDAPEOPLE_SLACK
+      - scan-backend:
+          requires: [build-backend]
+          context: UDAPEOPLE_SLACK
+      - scan-frontend:
+          requires: [build-frontend]
+          context: UDAPEOPLE_SLACK
       - deploy-infrastructure:
-#          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
             branches:
               only: [master]
