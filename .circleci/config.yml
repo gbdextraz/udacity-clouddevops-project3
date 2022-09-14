@@ -193,11 +193,11 @@ jobs:
             aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --filters "Name=tag:project,Values=udapeople" \
-              --output text >> .circleci/ansible/inventory.txt
+              --output text >> ~/Chapter3/Project3/udacity-clouddevops-project3/.circleci/ansible/inventory.txt
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths:
-            - .circleci/ansible/inventory.txt
+            - Chapter3/Project3/udacity-clouddevops-project3/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure
       - destroy-environment  
       - slack/notify:
@@ -235,24 +235,24 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend:
-          context: UDAPEOPLE_SLACK
-      - build-backend:
-          context: UDAPEOPLE_SLACK
-      - test-frontend:
-          requires: [build-frontend]
-          context: UDAPEOPLE_SLACK
-      - test-backend:
-          requires: [build-backend]
-          context: UDAPEOPLE_SLACK
-      - scan-backend:
-          requires: [build-backend]
-          context: UDAPEOPLE_SLACK
-      - scan-frontend:
-          requires: [build-frontend]
-          context: UDAPEOPLE_SLACK
+#      - build-frontend:
+#          context: UDAPEOPLE_SLACK
+#      - build-backend:
+#          context: UDAPEOPLE_SLACK
+#      - test-frontend:
+#          requires: [build-frontend]
+#          context: UDAPEOPLE_SLACK
+#      - test-backend:
+#          requires: [build-backend]
+#          context: UDAPEOPLE_SLACK
+#      - scan-backend:
+#          requires: [build-backend]
+#          context: UDAPEOPLE_SLACK
+#      - scan-frontend:
+#          requires: [build-frontend]
+#          context: UDAPEOPLE_SLACK
       - deploy-infrastructure:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+#          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
             branches:
               only: [master]
