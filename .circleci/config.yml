@@ -100,15 +100,16 @@ jobs:
       # Checkout code from git
       # Restore from cache
       # Your job code here
+
   scan-frontend:
     docker:
-      image: circleci/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
           keys: [frontend-build]
       - run:
-          name: Front-end Analyze
+          name: Front-end Tests
           command: |
             cd frontend
             npm install
@@ -119,13 +120,13 @@ jobs:
 
   scan-backend:
     docker:
-      image: circleci/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
           keys: [backend-build]
       - run:
-          name: Back-end Analyze
+          name: Back-end Tests
           command: |
             cd backend
             npm install
