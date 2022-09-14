@@ -199,10 +199,11 @@ jobs:
           paths:
             - Project 3/udacity-clouddevops-project3/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure
+      - destroy-environment  
       - slack/notify:
           event: fail
           template: basic_fail_1    
-      - destroy-environment  
+
 
 workflows:
   default:
@@ -213,14 +214,19 @@ workflows:
           context: UDAPEOPLE_SLACK
       - test-frontend:
           requires: [build-frontend]
+          context: UDAPEOPLE_SLACK
       - test-backend:
           requires: [build-backend]
+          context: UDAPEOPLE_SLACK
       - scan-backend:
           requires: [build-backend]
+          context: UDAPEOPLE_SLACK
       - scan-frontend:
           requires: [build-frontend]
+          context: UDAPEOPLE_SLACK
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
             branches:
               only: [master]
+          context: UDAPEOPLE_SLACK
