@@ -224,6 +224,7 @@ jobs:
             # Your code here
             apk add --update ansible
             apk add curl
+            apk add openssh-client
             pip install awscli
       - run:
           name: Configure server
