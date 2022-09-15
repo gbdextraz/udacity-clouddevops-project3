@@ -248,10 +248,6 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Install dependencies
-          command: |
-            apt install awscli
-      - run:
           name: Run migrations
           command: |
             cd backend
