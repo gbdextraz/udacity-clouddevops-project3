@@ -277,7 +277,9 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum -y install python ansible nodejs npm
+            yum -y install python3
+            curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
+            sudo yum install nodejs
       - run:
           name: Get backend url
           command: |
@@ -297,6 +299,10 @@ jobs:
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}"".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
 # Here's where you will add some code to rollback on failure     
+      - destroy-environment  
+      - slack/notify:
+          event: fail
+          template: basic_fail_1    
 
 #054a549
 
