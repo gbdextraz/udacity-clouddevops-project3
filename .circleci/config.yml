@@ -222,8 +222,8 @@ jobs:
           name: Install dependencies
           command: |
             # Your code here
-            yum install -y tar gzip curl
             apk add --update ansible
+            apk add curl
             pip install awscli
       - run:
           name: Configure server
