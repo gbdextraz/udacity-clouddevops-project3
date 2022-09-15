@@ -266,6 +266,42 @@ jobs:
           event: fail
           template: basic_fail_1     
 
+  deploy-frontend:
+    docker:
+      # Docker image here that supports AWS CLI
+      image: amazon/aws-cli
+    steps:
+      # Checkout code from git
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            # your code here
+            yum -y install python ansible nodejs npm
+      - run:
+          name: Get backend url
+          command: |
+            # your code here
+            export BACKEND_IP=$(aws ec2 describe-instances...............)
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
+            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+            cat frontend/.env
+      - run:
+          name: Deploy frontend objects
+          command: |
+            # your code here
+            cd frontend
+            npm install
+            npm run build
+#            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+            tar -czvf artifact-054a549.tar.gz dist
+#            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+            aws s3 cp dist s3://udapeople-054a549 --recursive
+      # Here's where you will add some code to rollback on failure     
+
+#054a549
+
 workflows:
   default:
     jobs:
@@ -285,14 +321,16 @@ workflows:
 #      - scan-frontend:
 #          requires: [build-frontend]
 #          context: UDAPEOPLE_SLACK
-      - deploy-infrastructure:
+#      - deploy-infrastructure:
 #          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          filters:
-            branches:
-              only: [master]
-          context: UDAPEOPLE_SLACK
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-          context: UDAPEOPLE_SLACK
-      - run-migrations:
-          requires: [configure-infrastructure]
+#          filters:
+#            branches:
+#              only: [master]
+#          context: UDAPEOPLE_SLACK
+#      - configure-infrastructure:
+#          requires: [deploy-infrastructure]
+#          context: UDAPEOPLE_SLACK
+#      - run-migrations:
+#          requires: [configure-infrastructure]
+      - deploy-frontend:
+#          requires: [run-migrations]
