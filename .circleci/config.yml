@@ -279,7 +279,7 @@ jobs:
             # your code here
             yum -y install python3
             curl -sL https://rpm.nodesource.com/setup_16.x | bash -
-            yum -y install nodejs tar
+            yum -y install nodejs tar gzip
       - run:
           name: Get backend url
           command: |
