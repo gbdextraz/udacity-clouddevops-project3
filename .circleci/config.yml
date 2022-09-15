@@ -224,7 +224,7 @@ jobs:
             # Your code here
             apk add --update ansible
             pip install awscli
-            pip -U paramiko
+            pip install paramiko -U
       - run:
           name: Configure server
           command: |
