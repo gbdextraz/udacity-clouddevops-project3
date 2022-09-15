@@ -278,7 +278,7 @@ jobs:
           command: |
             # your code here
             yum -y install python3
-            curl -sL https://rpm.nodesource.com/setup_17.x | bash -
+            curl -sL https://rpm.nodesource.com/setup_16.x | bash -
             yum -y install nodejs
       - run:
           name: Get backend url
