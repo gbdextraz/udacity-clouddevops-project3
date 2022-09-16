@@ -329,13 +329,11 @@ jobs:
           name: Deploy backend
           command: |
             # your code here
-            pwd
             cd backend
             npm i
             npm run build
             cd ..
-            tar -C backend/test -czvf artifact.tar.gz .
-            pwd
+            tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             echo "54.87.239.139" >> inventory.txt
