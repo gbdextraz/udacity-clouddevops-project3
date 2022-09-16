@@ -26,7 +26,7 @@
 
 - name: "Extract Arifact"
   unarchive:
-    src: artifact.tar.gz
+    src: ~/project/artifact.tar.gz
     dest: ~/Udapeople
 
 - name: "Start Application"
