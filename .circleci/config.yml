@@ -407,20 +407,20 @@ workflows:
 #      - scan-frontend:
 #          requires: [build-frontend]
 #          context: UDAPEOPLE_SLACK
-      - deploy-infrastructure:
+#      - deploy-infrastructure:
 #          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          filters:
-            branches:
-              only: [master]
-          context: UDAPEOPLE_SLACK
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-          context: UDAPEOPLE_SLACK
-      - run-migrations:
-          requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [run-migrations]
-      - deploy-backend:
-          requires: [run-migrations]
-      - smoke-test:
-          requires: [deploy-backend, deploy-frontend]
+#          filters:
+#            branches:
+#              only: [master]
+#          context: UDAPEOPLE_SLACK
+#      - configure-infrastructure:
+#          requires: [deploy-infrastructure]
+#          context: UDAPEOPLE_SLACK
+#      - run-migrations:
+#          requires: [configure-infrastructure]
+#      - deploy-frontend:
+#          requires: [run-migrations]
+#      - deploy-backend:
+#          requires: [run-migrations]
+      - smoke-test
+#          requires: [deploy-backend, deploy-frontend]

@@ -39,6 +39,7 @@
     rm -f artifact.tar.gz
 
 - name: "Start Application"
+  become: true
   shell:
     cd ~/Udapeople
     npm install
