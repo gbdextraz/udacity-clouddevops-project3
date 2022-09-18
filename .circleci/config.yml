@@ -29,11 +29,14 @@ commands:
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             SUCCESS=$(curl --insecure  https://kvdb.io/LviPqy5qisYxGyhZgEXfxL/migration_${CIRCLE_WORKFLOW_ID:0:7})
-            if(( $SUCCESS==1 )); 
+            if(( $SUCCESS==0 )); 
             then
+              echo "Reverting Back"
               cd ~/project/backend
               npm install
               npm run migration:revert
+            else
+              echo "Not Revering. Proceeding"
             fi
             
 jobs:
