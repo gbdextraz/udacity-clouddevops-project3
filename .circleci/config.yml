@@ -13,6 +13,7 @@ commands:
           when: on_fail
           command: |
             # Your code here
+            echo "Destroying environment: ${CIRCLE_WORKFLOW_ID:0:7} "
             aws s3 rm --recursive s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
@@ -27,13 +28,12 @@ commands:
           # Add when this will run
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = 1
+            SUCCESS=$(curl --insecure  https://kvdb.io/LviPqy5qisYxGyhZgEXfxL/migration_${CIRCLE_WORKFLOW_ID:0:7})
             if(( $SUCCESS==1 )); 
             then
-            #  cd ~/project/backend
-            #  npm install
-            #  Add revert code here. You can find this in the Getting Started section.
-              exit 1
+              cd ~/project/backend
+              npm install
+              npm run migration:revert
             fi
             
 jobs:
@@ -280,6 +280,7 @@ jobs:
               curl https://kvdb.io/LviPqy5qisYxGyhZgEXfxL/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             else:
               echo 'Migration failed'
+              curl https://kvdb.io/LviPqy5qisYxGyhZgEXfxL/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '0'
             fi
     # Here's where you will add some code to rollback on failure    
       - destroy-environment  
@@ -417,6 +418,11 @@ jobs:
               exit 1
             fi
       # Here's where you will add some code to rollback on failure  
+      - destroy-environment  
+      - revert-migrations
+      - slack/notify:
+          event: fail
+          template: basic_fail_1   
 
 
 #51c5cc9
