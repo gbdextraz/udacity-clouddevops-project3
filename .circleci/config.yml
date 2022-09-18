@@ -266,7 +266,9 @@ jobs:
             npm install
             echo $?
             echo "npm audit fix"
+            npm audit fix --audit-level=critical --force
             npm audit fix --force
+            npm audit --audit-level=critical
             echo $?
             echo "npm run build"
             npm run build
