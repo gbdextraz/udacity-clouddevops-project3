@@ -255,7 +255,7 @@ jobs:
             cd backend
             echo ENVIRONMENT=production > ".env"
             echo TYPEORM_CONNECTION=postgres >> ".env"
-            echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> ".env"
+            echo TYPEORM_ENTITIES=./src/modules/domain/*/*/*.entity.ts >> ".env"
             echo TYPEORM_MIGRATIONS=./src/migrations/*.ts >> ".env"
             echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> ".env"
             echo NODE_ENV=production >> ".env"
@@ -359,7 +359,7 @@ jobs:
             npm run build
             echo ENVIRONMENT=production > ".env"
             echo TYPEORM_CONNECTION=postgres >> ".env"
-            echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> ".env"
+            echo TYPEORM_ENTITIES=./src/modules/domain/*/*/*.entity.ts >> ".env"
             echo TYPEORM_MIGRATIONS=./src/migrations/*.ts >> ".env"
             echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> ".env"
             echo NODE_ENV=production >> ".env"
@@ -374,7 +374,7 @@ jobs:
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
-            ansible-playbook -i inventory.txt deploy-backend.yml
+            ansible-playbook -i inventory.txt deploy-backend.yml -v
 # Here's where you will add some code to rollback on failure  
 
   smoke-test:
@@ -404,7 +404,7 @@ jobs:
             then
               exit 0
             else
-              exit 0
+              exit 1
             fi
       - run:
           name: Frontend smoke test.
@@ -420,8 +420,6 @@ jobs:
               exit 1
             fi
       # Here's where you will add some code to rollback on failure  
-      - destroy-environment  
-      - revert-migrations
       - slack/notify:
           event: fail
           template: basic_fail_1   
