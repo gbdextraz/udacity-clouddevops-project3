@@ -266,7 +266,7 @@ jobs:
             npm install
             echo $?
             echo "npm audit fix"
-            npm audit fix
+            npm audit fix --force
             echo $?
             echo "npm run build"
             npm run build
@@ -463,3 +463,4 @@ workflows:
           requires: [run-migrations]
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
+          context: UDAPEOPLE_SLACK
