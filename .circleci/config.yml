@@ -265,14 +265,6 @@ jobs:
             echo "npm install"
             npm install
             echo $?
-            echo "npm audit fix"
-            npm audit fix --audit-level=critical --force
-            npm audit fix --force
-            npm audit --audit-level=critical
-            echo $?
-            echo "npm run build"
-            npm run build
-            echo $?
             echo "npm migrations"
             npm run migrations > migrations_dump.txt
             echo $?
