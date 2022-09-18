@@ -497,5 +497,5 @@ workflows:
 #      - smoke-test:
 #          requires: [deploy-backend, deploy-frontend]
 #          context: UDAPEOPLE_SLACK
-      - cloudfront-update:
+      - cloudfront-update
 #          requires: [smoke-test]  
