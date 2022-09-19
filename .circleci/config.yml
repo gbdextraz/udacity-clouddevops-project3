@@ -320,7 +320,7 @@ jobs:
             cd frontend
             npm install
             npm run build
-            tar -czvf artifact-"0ccb20e".tar.gz dist
+            tar -czvf artifact-0ccb20e.tar.gz dist
             aws s3 cp dist s3://udapeople-0ccb20e --recursive
 # Here's where you will add some code to rollback on failure     
       - slack/notify:
