@@ -253,12 +253,14 @@ jobs:
           name: Run migrations
           command: |
             cd backend
+            sudo npm i -g pm2
+            sudo npm install typescript
+            
             echo ENVIRONMENT=production > ".env"
             echo TYPEORM_CONNECTION=postgres >> ".env"
             echo TYPEORM_ENTITIES=./src/modules/domain/*/*/*.entity.ts >> ".env"
             echo TYPEORM_MIGRATIONS=./src/migrations/*.ts >> ".env"
             echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> ".env"
-            echo NODE_ENV=production >> ".env"
             echo TYPEORM_HOST=$TYPEORM_HOST >> ".env"
             echo TYPEORM_PORT=$TYPEORM_PORT >> ".env"
             echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> ".env"
@@ -285,7 +287,6 @@ jobs:
               curl https://kvdb.io/LviPqy5qisYxGyhZgEXfxL/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '0'
             fi
     # Here's where you will add some code to rollback on failure    
-      - destroy-environment  
       - slack/notify:
           event: fail
           template: basic_fail_1     
@@ -518,9 +519,9 @@ workflows:
 #      - configure-infrastructure:
 #          requires: [deploy-infrastructure]
 #          context: UDAPEOPLE_SLACK
-#      - run-migrations:
+      - run-migrations
 #          requires: [configure-infrastructure]
-      - deploy-frontend
+#      - deploy-frontend:
 #          requires: [run-migrations]
 #      - deploy-backend:
 #          requires: [run-migrations]
