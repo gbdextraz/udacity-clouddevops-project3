@@ -49,3 +49,4 @@
   shell:
     cd ~/Udapeople
     pm2 start npm -- run start
+    sleep 60
