@@ -253,9 +253,6 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            sudo npm i -g pm2
-            sudo npm install typescript
-            
             echo ENVIRONMENT=production > ".env"
             echo TYPEORM_CONNECTION=postgres >> ".env"
             echo TYPEORM_ENTITIES=./src/modules/domain/*/*/*.entity.ts >> ".env"
